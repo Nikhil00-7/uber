@@ -46,7 +46,7 @@ pipeline {
     stages {
         stage("Checkout Code") {
             steps {
-                git branch: 'main', url: 'YOUR_GIT_REPO_URL'
+                git branch: 'main', url: 'https://github.com/Nikhil00-7/uber.git'
             }
         }
 
