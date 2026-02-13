@@ -8,6 +8,6 @@ spec:
   selector:
     app: captain-app
   ports:
-   - port: 3000
-     targetPort: 3000
+   - port: 3002
+     targetPort: 3002
      
