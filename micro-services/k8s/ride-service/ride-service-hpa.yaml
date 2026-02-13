@@ -2,7 +2,7 @@ apiVersion:  autoscalling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: ride-app-auto-scaller
-  namespace: uber
+
 spec:
   scaleTargetRef:
      apiVersion: apps/v1 
