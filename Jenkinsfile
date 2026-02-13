@@ -138,9 +138,10 @@ pipeline {
                           ${USER_SERVICE_HPA}
                         )
 
-                        for file in "${FILES[@]}"; do
-                          ssh -o StrictHostKeyChecking=no ubuntu@192.168.2.20 "kubectl apply -f /home/ubuntu/$file --namespace=uber"
-                        done
+                       for file in "\${FILES[@]}"; do
+                  echo "Applying \$file"
+                  ssh -o StrictHostKeyChecking=no ubuntu@192.168.2.20 "kubectl apply -f /home/ubuntu/\$file --namespace=uber"
+                done
                     """
                 }
             }
