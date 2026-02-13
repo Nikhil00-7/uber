@@ -41,6 +41,8 @@ pipeline {
         USER_STATEFULSET_SERVICE = "user-statefull-set-service.yaml"
         USER_STATEFULSET = "user-statefull-set.yaml"
         USER_SERVICE_HPA = "user-service-hpa.yaml"
+
+         PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     }
 
     stages {
