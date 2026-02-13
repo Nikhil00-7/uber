@@ -139,8 +139,10 @@ pipeline {
                         )
 
                        for file in "\${FILES[@]}"; do
-                  echo "Applying \$file"
-                  ssh -o StrictHostKeyChecking=no ubuntu@192.168.2.20 "kubectl apply -f /home/ubuntu/\$file --namespace=uber"
+                   FILENAME=$(basename $file)
+  echo "Applying $FILENAME"
+  ssh -o StrictHostKeyChecking=no ubuntu@192.168.2.20 \
+  "kubectl apply -f /home/ubuntu/$FILENAME --namespace=uber"
                 done
                     """
                 }
