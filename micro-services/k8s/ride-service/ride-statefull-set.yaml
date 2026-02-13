@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata: 
+  name: ride-mongo-db 
+  namespace: uber 
+spec:
+  serviceName: "mongo-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ride-mongo-db 
+  template: 
+    metadata:
+      labels: 
+        app: ride-mongo-db
+    spec: 
+      securityContext:
+        runAsNonRoot: true 
+        runAsUser: 1000
+      containers:
+       - name: ride-mongo-container 
+         image: mongo:6.0 
+         ports: 
+           - containerPort: 27017
+      volumeMounts:
+        - name: ride-storage-db
+          mountPath: /data/db  
+    volumeClaimTemplates:
+      - metadata:
+         name: ride-storage-db 
+        spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi  
+          
+        
+ 

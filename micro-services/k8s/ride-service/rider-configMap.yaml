@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap 
+metadata:
+ name: ride-config
+ namespace: uber
+data:
+  MONGO_URL: mongodb://localhost:27017/rideDB
+  RABBIT_URL: amqp://guest:guest@localhost:5672
+  BASE_URL: http://localhost:3000
+  
