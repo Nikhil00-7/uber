@@ -65,10 +65,10 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-login', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh """
                         echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                        docker build -t $USER_IMAGE .
-                        docker build -t $RIDER_IMAGE .
-                        docker build -t $CAPTAIN_IMAGE .
-                        docker build -t $GATEWAY_IMAGE .
+                          docker build -t $USER_IMAGE ./user
+                docker build -t $RIDER_IMAGE ./ride
+                docker build -t $CAPTAIN_IMAGE ./captain
+                docker build -t $GATEWAY_IMAGE ./gateway
                         docker push $USER_IMAGE
                         docker push $RIDER_IMAGE
                         docker push $CAPTAIN_IMAGE
