@@ -111,7 +111,7 @@ pipeline {
         stage("Deploy to Kubernetes") {
             steps {
                 sshagent(['k8s-master-ssh']) {
-                    sh '''
+                    sh """
                         ssh -o StrictHostKeyChecking=no ubuntu@192.168.2.20 "kubectl get ns uber || kubectl create ns uber"
 
                         FILES=(
@@ -141,7 +141,7 @@ pipeline {
                         for file in "${FILES[@]}"; do
                           ssh -o StrictHostKeyChecking=no ubuntu@192.168.2.20 "kubectl apply -f /home/ubuntu/$file --namespace=uber"
                         done
-                    '''
+                    """
                 }
             }
         }
