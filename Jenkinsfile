@@ -109,46 +109,45 @@ pipeline {
         }
 
         stage("Deploy to Kubernetes") {
-            steps {
-                sshagent(['k8s-master-ssh']) {
+    steps {
+        sshagent(['k8s-master-ssh']) {
+            script {
+                def files = [
+                    USER_DEPLOYMENT,
+                    RIDER_DEPLOYMENT,
+                    CAPTAIN_DEPLOYMENT,
+                    USER_SERVICE,
+                    RIDER_SERVICE,
+                    CAPTAIN_SERVICE,
+                    USER_CONFIG_MAP,
+                    USER_SECRET,
+                    RIDER_CONFIG_MAP,
+                    RIDER_SECRET,
+                    GATEWAY_DEPLOYMENT,
+                    GATEWAY_SERVICE,
+                    CAPTAIN_SERVICE_HPA,
+                    CAPTAIN_DB_STATEFULSET,
+                    CAPTAIN_STATEFULSET_SERVICE,
+                    RIDE_STATEFULSET,
+                    RIDE_STATEFULSET_SERVICE,
+                    RIDE_SERVICE_HPA,
+                    USER_STATEFULSET_SERVICE,
+                    USER_STATEFULSET,
+                    USER_SERVICE_HPA
+                ]
+
+                for (file in files) {
+                    def filename = file.tokenize('/').last()
                     sh """
-                        ssh -o StrictHostKeyChecking=no ubuntu@192.168.2.20 "kubectl get ns uber || kubectl create ns uber"
-
-                        FILES=(
-                          ${USER_DEPLOYMENT}
-                          ${RIDER_DEPLOYMENT}
-                          ${CAPTAIN_DEPLOYMENT}
-                          ${USER_SERVICE}
-                          ${RIDER_SERVICE}
-                          ${CAPTAIN_SERVICE}
-                          ${USER_CONFIG_MAP}
-                          ${USER_SECRET}
-                          ${RIDER_CONFIG_MAP}
-                          ${RIDER_SECRET}
-                          ${GATEWAY_DEPLOYMENT}
-                          ${GATEWAY_SERVICE}
-                          ${CAPTAIN_SERVICE_HPA}
-                          ${CAPTAIN_DB_STATEFULSET}
-                          ${CAPTAIN_STATEFULSET_SERVICE}
-                          ${RIDE_STATEFULSET}
-                          ${RIDE_STATEFULSET_SERVICE}
-                          ${RIDE_SERVICE_HPA}
-                          ${USER_STATEFULSET_SERVICE}
-                          ${USER_STATEFULSET}
-                          ${USER_SERVICE_HPA}
-                        )
-
-                       for file in "\${FILES[@]}"; do
-                   FILENAME=$(basename $file)
-  echo "Applying $FILENAME"
-  ssh -o StrictHostKeyChecking=no ubuntu@192.168.2.20 \
-  "kubectl apply -f /home/ubuntu/$FILENAME --namespace=uber"
-                done
+                        ssh -o StrictHostKeyChecking=no ubuntu@192.168.2.20 \
+                        "kubectl apply -f /home/ubuntu/${filename} -n uber"
                     """
                 }
             }
         }
     }
+}
+
 
     post {
         success {
