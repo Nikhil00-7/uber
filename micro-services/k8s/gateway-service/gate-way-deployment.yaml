@@ -44,7 +44,7 @@ spec:
                       - ssd
       containers:
         - name: gateway-container
-          image: docdon0007/gateway
+          image: docdon0007/apigateway:03
           ports:
             - containerPort: 3000
           securityContext:
@@ -76,6 +76,4 @@ spec:
             requests:
               cpu: "100m"
               memory: "128Mi"
-            limits:
-              cpu: "300m"
-              memory: "256Mi"
+           

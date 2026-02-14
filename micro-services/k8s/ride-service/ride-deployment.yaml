@@ -53,7 +53,7 @@ spec:
 
       containers:
         - name: ride-app-container
-          image: docdon0007/ride:01
+          image: docdon0007/rider:03
 
           securityContext:
             allowPrivilegeEscalation: false
