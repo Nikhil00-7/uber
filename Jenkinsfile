@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         DOCKER_USER = "docdon0007"
-        TAG = "01"
+        TAG = "03"
         
         USER_IMAGE = "${DOCKER_USER}/user:${TAG}"
         RIDER_IMAGE = "${DOCKER_USER}/rider:${TAG}"
